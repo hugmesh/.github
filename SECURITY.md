@@ -1,10 +1,10 @@
 # Security Policy
 
-If you believe you've found a security vulnerability in any HugMesh repository, please report it
-privately rather than opening a public issue.
+If you find a vulnerability in any HugMesh repository, report it privately.
+Do not open a public issue.
 
 Use GitHub's [private vulnerability reporting](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)
-feature on the affected repo (Security tab → Report a vulnerability), or open a draft security advisory.
-We'll acknowledge reports as quickly as we can and coordinate a fix and disclosure timeline with you.
+on the affected repo (Security tab → Report a vulnerability), or open a draft security advisory.
+We will acknowledge your report as quickly as we can and agree a fix and disclosure timeline with you.
 
-Please do not include exploit details in a public issue or discussion until a fix has shipped.
+Keep exploit details out of public issues and discussions until a fix has shipped.
