@@ -36,14 +36,15 @@ sign-in. It is young, and honest about it.
 
 Most online communities live on someone else's servers, under someone else's rules.
 HugMesh is a set of tools for groups that would rather host themselves. The Image
-Studio is a desktop wizard for Linux and Windows. It asks plain questions and builds
-hardened Gentoo images for x86 machines and Raspberry Pis, so nobody has to remember
-builder flags. Saved Studio configs never contain your passwords. Once a mesh is
-running, members sign in once through a normal form and move between Matrix chat, a
-Mastodon-compatible timeline, a forum, their own profile page and a 2D character
-maker. Moderators get a request queue and an audit trail, and admins a console. A
-mesh can host several domains, and work on giving each its own sign-in, services and
-Tor address is under way. It is early work: some image families still wait for real
+Studio is a desktop wizard for Linux and Windows (Windows not yet confirmed on a
+real Windows machine). It asks plain questions and builds hardened Gentoo images for
+x86 machines and Raspberry Pis, so nobody has to remember builder flags. Saved
+Studio configs never contain your passwords. Once a mesh is running, members sign in
+once through a normal form and move between Matrix chat, a Mastodon-compatible
+timeline, a forum (in beta), their own profile page and a 2D character maker.
+Moderators get a request queue and an audit trail, and admins a console. A mesh can
+host several domains, and work on giving each its own sign-in, services and Tor
+address is under way. It is early work: some image families still wait for real
 hardware, and we try to say plainly what is unfinished.
 
 ---
@@ -70,7 +71,8 @@ hardware, and we try to say plainly what is unfinished.
 
 - A step-by-step wizard for **Linux and Windows** that builds HugMesh images. On
   Windows, builds run through Docker Desktop (WSL2 is the recommended way); there
-  is no native Windows build. Run it from a checkout of `hugmesh-generator`.
+  is no native Windows build. Windows support is not yet confirmed on a real Windows
+  machine. Run it from a checkout of `hugmesh-generator`.
 - **Ten cards on the build menu.** Three build an image: a standalone Gentoo
   desktop, a mesh desktop client, and a mesh node. Seven run a tool: local Docker
   mesh, end-to-end tests, mesh emulation, cloud deploy, MDM phone, MDM Quest headset,
@@ -100,29 +102,30 @@ hardware, and we try to say plainly what is unfinished.
   its licence recorded. It applies when the container starts, with no image rebuild.
 - **Desktop branding.** Premade looks (light, dark, purple, grey) or your own
   wallpaper, boot screens, login background, accent colour and logo. An
-  "unaffiliated" desktop keeps the look options but carries no HugMesh branding or
-  tooling at all.
+  "unaffiliated" desktop keeps the look options but carries no HugMesh name, logo or
+  tooling (the premade wallpapers still show the mesh hexagon pattern).
 - **Saved meshes.** "Save this mesh" records a running local mesh's settings,
   domains, account names and roles. By default it stores only pointers to its
   credentials, never the data or any password. Copying the credential files is an
   opt-in, and they are saved readable by you alone (mode 0600). Before you click,
   the table shows whether a row will start again or be restored from scratch.
-- **Go-live wizard.** Guides an admin through putting a mesh on the public internet
-  with one of six options: your own domain, Cloudflare Tunnel, DuckDNS or Cloudflare
-  dynamic DNS, Tailscale Funnel, a router port-forward, or a Tor onion. It shows a
-  preview first and changes nothing until you confirm, and undoing it means deleting
-  one file. For most options it tells you which DNS records or tunnel settings to
-  create; the dynamic-DNS option installs a small updater that keeps your record
-  current. (Not yet tested against a real domain or DNS provider.)
-- **Copy your code into your own GitHub org.** A domain can name a GitHub org, and
-  the Studio plans, then applies, an export of that domain's repositories. Planning
-  is the default, and applying only starts once you type the org name. It creates
-  private repos by default, leaves out secret-looking files, refuses a repo when it
-  finds common key or token patterns, and never force-pushes. These checks look for
-  known file names and key patterns; they can miss a secret, so review the plan
-  before you apply it. Some steps stay manual: signing in, setting the repo secrets,
-  publishing the exported Java libraries from the new org, and switching on Pages.
-  (Tested with local stand-ins, not yet against a real GitHub org.)
+- **Go-live wizard** **[beta]**. Guides an admin through putting a mesh on the
+  public internet with one of six options: your own domain, Cloudflare Tunnel,
+  DuckDNS or Cloudflare dynamic DNS, Tailscale Funnel, a router port-forward, or a
+  Tor onion. It shows a preview first and changes nothing until you confirm, and
+  undoing it means deleting one file. For most options it tells you which DNS
+  records or tunnel settings to create; the dynamic-DNS option installs a small
+  updater that keeps your record current. (Not yet tested against a real domain or
+  DNS provider.)
+- **Copy your code into your own GitHub org** **[beta]**. A domain can name a GitHub
+  org, and the Studio plans, then applies, an export of that domain's repositories.
+  Planning is the default, and applying only starts once you type the org name. It
+  creates private repos by default, leaves out secret-looking files, refuses a repo
+  when it finds common key or token patterns, and never force-pushes. These checks
+  look for known file names and key patterns; they can miss a secret, so review the
+  plan before you apply it. Some steps stay manual: signing in, setting the repo
+  secrets, publishing the exported Java libraries from the new org, and switching on
+  Pages. (Tested with local stand-ins, not yet against a real GitHub org.)
 - **Local AI helper.** Start a coding helper on a model running on your own PC
   (Ollama), in a throwaway copy of one app's code. The Studio does not pass your
   GitHub, cloud or registry tokens into the helper's environment, and it never turns
@@ -241,7 +244,8 @@ hardware, and we try to say plainly what is unfinished.
 ### For moderators and admins
 
 - **Moderator console** **[beta]**. Review the moderation queue, recommend actions,
-  file ban and domain-lock requests, block users or servers, review automated image
+  file ban and domain-lock requests, block users or servers (recorded and audited;
+  on Matrix the block itself is not carried out yet), review automated image
   findings, and read the audit trail. Actions are *requests* that take effect
   shortly after, not instantly.
 - **Domain lock** **[experimental]**. Moderators and admins can mark an account
@@ -259,8 +263,9 @@ hardware, and we try to say plainly what is unfinished.
 ### Security and privacy
 
 - **No access tokens in page scripts.** With the built-in sign-in (the default), you
-  log in through HugMesh's own form and the browser holds only a session cookie that
-  scripts cannot read; the login token stays on the server.
+  log in through HugMesh's own form. The login token never reaches the browser, and
+  the session cookie is one page scripts cannot read. (The browser also holds a
+  separate anti-forgery cookie that scripts can read; it is not a login token.)
 - **Login tokens and two-factor secrets encrypted at rest.** Saved login tokens and
   two-factor secrets are encrypted with AES-256-GCM. Without the key, that feature
   stays switched off; it never falls back to storing plain text.
@@ -279,8 +284,9 @@ hardware, and we try to say plainly what is unfinished.
   by default; an operator turns it on after every admin has enrolled.
 - **Service-to-service certificates** **[beta]**. Services are set up to prove who
   they are to each other with short-lived certificates (mutual TLS), and the gateway
-  requires TLS 1.3. Each brand is meant to get its own certificate authority, but
-  switching a running mesh to that is still open work. A live check has not been done.
+  uses TLS 1.3 only by default. Each brand is meant to get its own certificate
+  authority, but switching a running mesh to that is still open work. A live check
+  has not been done.
 - **Tor address per domain** **[beta]**. A domain can have its own `.onion` address
   using the standard Tor daemon, with no public IP or DNS. Off by default. It takes
   effect on the local Docker mesh; on node images it is recorded but not yet set up.
@@ -325,7 +331,8 @@ hardware, and we try to say plainly what is unfinished.
 - **Careful by default.** Saved configs never keep passwords, go-live and export
   preview before they change anything, and Docker builds are memory-capped.
 - **A desktop that wears nobody's logo.** The "unaffiliated" standalone desktop is a
-  hardened, encrypted Gentoo desktop with no HugMesh branding or tooling inside.
+  hardened, encrypted Gentoo desktop with no HugMesh name, logo or tooling (the
+  premade wallpapers still show the mesh hexagon pattern).
 
 ---
 
@@ -365,7 +372,7 @@ Linux:
 ```sh
 make stack-m2-bootstrap   # once, before the first build
 make stack-up SOCIAL=1    # SOCIAL=1 adds Matrix and Mastodon; add PHPBB=1 for the forum
-make stack-seed           # required: creates the accounts you sign in with
+make stack-seed SOCIAL=1  # required: creates the accounts you sign in with
 ```
 
 Then open http://localhost:8088 and sign in. Accounts and details are in
@@ -435,15 +442,17 @@ github.com/hugmesh shows them to a signed-out browser first.
 1. HugMesh is now public on GitHub. It's a set of tools for running your own
    community space (chat, a timeline, a forum, profiles) on machines you control.
    Early days, clearly labelled. github.com/hugmesh
-2. The HugMesh Image Studio is a desktop wizard for Linux and Windows that builds
-   hardened Gentoo images for PCs and Raspberry Pis, without you having to remember
-   a single build flag. Saved configs never keep your passwords.
+2. The HugMesh Image Studio is a desktop wizard for Linux and Windows (Windows not
+   yet confirmed on a real Windows machine) that builds hardened Gentoo images for
+   PCs and Raspberry Pis, without you having to remember a single build flag. Saved
+   configs never keep your passwords.
 3. One sign-in, many rooms: HugMesh puts Matrix chat, a Mastodon-compatible
    timeline, a forum and a 2D avatar maker behind one front door. With the built-in
-   sign-in, your browser holds only a session cookie that page scripts can't read.
+   sign-in, the login token never reaches your browser, and the session cookie is
+   one page scripts can't read.
 4. Want a hardened, encrypted Gentoo desktop with nobody's logo on it? HugMesh's
-   "unaffiliated" standalone desktop has full-disk encryption and zero HugMesh
-   branding or tooling inside.
+   "unaffiliated" standalone desktop has full-disk encryption and no HugMesh name,
+   logo or tooling (the premade wallpapers still show the mesh hexagon pattern).
 5. We'd rather be honest than shiny. We mark what's beta and experimental. Orange Pi,
    Jetson and Raspberry Pi images are still waiting on real-hardware boots. Come help
    test. github.com/hugmesh
