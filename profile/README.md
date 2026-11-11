@@ -67,7 +67,8 @@ all backed by the same `make` targets under the hood:
 
 > Studio is a cross-platform PySide6 wizard (Linux + Windows) that wraps the
 > generator's `make` targets in a guided UI. It handles branding, optional-service
-> toggles and build progress, so a first build needs no terminal. Beta downloads: [hugmesh.net/downloads](https://hugmesh.net/downloads).
+> toggles, each node's keys folder and build progress, so a first build needs no
+> terminal; the KEYS stick itself is written with `scripts/make-keys-usb.sh`. Beta downloads: [hugmesh.net/downloads](https://hugmesh.net/downloads).
 
 ### Studio documentation
 
