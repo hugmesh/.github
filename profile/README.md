@@ -6,7 +6,7 @@
 
 ---
 
-## What is HugMesh?
+## What HugMesh is
 
 HugMesh is a **self-hosted home-lab platform** that lets you run your own
 community — Matrix chat, Mastodon/fediverse, a forum, games, a wiki, live
@@ -57,7 +57,7 @@ all backed by the same `make` targets under the hood:
 
 | Interface | Best for | Launch |
 |-----------|----------|--------|
-| **[Studio (GUI wizard)](#studio-graphical-wizard)** | First builds, new operators | `python studio/hugmesh-studio.py` |
+| **[Studio (GUI wizard)](#studio-graphical-wizard)** | First builds, new operators | [hugmesh.net/downloads](https://hugmesh.net/downloads) |
 | **[Console menu (ncurses)](#console-menu-ncurses)** | Repeat builds, SSH sessions | `make menu` |
 | **[CLI (make / scripts)](#command-line)** | CI, automation, scripted builds | `make build-all` |
 
@@ -67,29 +67,16 @@ all backed by the same `make` targets under the hood:
 
 > Studio is a cross-platform PySide6 wizard (Linux + Windows) that wraps the
 > generator's `make` targets in a guided UI. It handles branding, optional-service
-> toggles, KEYS-stick creation, and build progress — no terminal required for a
-> first build. Beta downloads: [hugmesh.net/downloads](https://hugmesh.net/downloads).
+> toggles, each node's keys folder and build progress, so a first build needs no
+> terminal; the KEYS stick itself is written with `scripts/make-keys-usb.sh`. Beta downloads: [hugmesh.net/downloads](https://hugmesh.net/downloads).
 
-### The walkthrough moved
+### Studio documentation
 
-The page-by-page walkthrough that used to live here now sits beside the code it
-documents, where it can be checked against it:
-
-**[The operator's walkthrough](https://github.com/hugmesh/hugmesh-generator/blob/main/docs/STUDIO-WALKTHROUGH.md)**
-— every page of the wizard in the order you meet them, which of the ten
-build-menu cards routes where, and why only three of them are image modes.
-
-It was rewritten from the wizard's own source. The version that lived here had
-drifted badly: it described a linear nine-page flow, and the Studio has
-twenty-six pages whose order depends on what you are building.
-
-Two companion documents:
-
-- **[Studio overview](https://github.com/hugmesh/hugmesh-generator/blob/main/studio/README.md)**
-  — what it does, and how to run it.
-- **[Wizard flow](https://github.com/hugmesh/hugmesh-generator/blob/main/docs/STUDIO-WIZARD-FLOW.md)**
-  — the flow's design, for people changing it rather than using it.
-
+- [Install the Studio](https://hugmesh.net/studio/installers): the Windows and Linux
+  packages, and running it from a checkout.
+- [Studio user guide](https://hugmesh.net/studio/overview): what it does and how to run it.
+- [Every screen of the Studio wizard](https://hugmesh.net/studio/walkthrough): each page
+  in the order you meet it, for each kind of build.
 
 ---
 
